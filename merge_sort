@@ -1,0 +1,44 @@
+function merge_sort(arr) {
+	if(arr.length < 2) {
+		return arr;
+	} else {
+		let [left, right] = splitArr(arr);
+		const sortedLeft = merge_sort(left);
+		const sortedRight = merge_sort(right);
+		return merge_arr(sortedLeft, sortedRight);
+	}
+}
+
+//Split arr in 2 halves
+function splitArr(arr) {
+	let i = (((arr.length / 2) % 2 == 0) ? (arr.length/2):Math.round(arr.length/2))
+	return [arr.slice(0,i),arr.slice(i,arr.length)]
+}
+
+//aArr and bArr should already be sorted
+function merge_arr(aArr, bArr) {
+	let i=0,j=0,t=0;	
+
+	let cArr = [];
+	const aArrLen = aArr.length;
+	const bArrLen = bArr.length;
+
+	while(i < aArrLen && j < bArrLen) {
+		if(aArr[i] < bArr[j])
+			cArr[t++] = aArr[i++];
+		else
+			cArr[t++] = bArr[j++];
+	} 
+
+	while(i < aArrLen) {
+		cArr[t++] = aArr[i++];
+	}
+
+	while(j < bArrLen) {
+		cArr[t++] = bArr[j++];
+	}
+
+	return cArr;
+}
+
+module.exports = {merge_arr, splitArr, merge_sort}
